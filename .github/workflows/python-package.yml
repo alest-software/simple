@@ -43,5 +43,7 @@ jobs:
       run: |
         git config --global user.name 'Github'
         git config --global user.email 'github@alest-software.nl'
-        git commit -am 'Regenerated indices'
-        git push
+        if ! git diff-index --quiet HEAD; then
+          git commit -am 'Regenerated indices'
+          git push
+        fi
