@@ -10,9 +10,6 @@ on:
     branches: [ "main" ]
 
 env:
-  GITHUB_UPLOAD_REPO: ${{ vars.UPLOAD_REPO }}
-  GITHUB_UPLOAD_OWNER: ${{ vars.UPLOAD_OWNER }}
-  GITHUB_UPLOAD_PATH: ${{ vars.UPLOAD_PATH }}
   GITHUB_UPLOAD_NAME: ${{ secrets.UPLOAD_NAME }}
   GITHUB_UPLOAD_EMAIL: ${{ secrets.UPLOAD_EMAIL }}
   GITHUB_UPLOAD_TOKEN: ${{ secrets.UPLOAD_TOKEN }}
@@ -28,6 +25,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.UPLOAD_TOKEN }}
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v5
       with:
@@ -42,7 +41,7 @@ jobs:
         python3 .github/workflows/generate_indices.py .
     - name: Commit changes
       run: |
-        git config --global user.name 'Github'
-        git config --global user.email 'github@alest-software.nl'
+        git config --global user.name "${{ secrets.UPLOAD_NAME }}"
+        git config --global user.email "${{ secrets.UPLOAD_EMAIL }}"
         git commit -am 'Regenerated indices'
         git push
