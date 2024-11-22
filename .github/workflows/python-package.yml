@@ -42,5 +42,7 @@ jobs:
         python3 .github/workflows/generate_indices.py .
     - name: Commit changes
       run: |
-        git commit -am 'Automated indices'
+        git config --global user.name 'Github'
+        git config --global user.email 'github@alest-software.nl'
+        git commit -am 'Regenerated indices'
         git push
