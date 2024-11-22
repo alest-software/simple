@@ -40,3 +40,7 @@ jobs:
     - name: Generate indices
       run: |
         python3 .github/workflows/generate_indices.py .
+    - name: Commit changes
+      run: |
+        git commit -am 'Automated indices'
+        git push
